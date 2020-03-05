@@ -65,7 +65,25 @@
 							(console.log('only is permitted "add" or "sub"')));
 							cssText.ArrCSS(second, wrapImg.RetArrFromOnlyPlace(countImg , countImg))
 						}
-
+						const animInterval = () => {
+							if(countImg === 4) {
+								for(let i = 0; i < 5; i++) {
+									if(countImg === 0)
+										countImg = 1;
+									animationCaro({
+										style: `left:-115%;`
+									},{
+										style: `bottom:0%;`
+									}, 'sub');
+								}
+							}
+							animationCaro({
+								style:`bottom: 100%;`
+							}, {
+								style:`left: 0%;`
+							}, 'add');
+						}
+						let controlAnim = window.setInterval(animInterval, 4000);
 						cssText.withoutArr({
 							style:`
 								position:absolute;
@@ -102,9 +120,9 @@
 						cssText.withoutArr({
 							style: `
 								position:absolute;
-								width: 70%;
+								width: 60%;
 								height: 100%;
-								left: 15%;
+								left: 20%;
 								overflow:hidden;
 							`
 						}, wrapContent);
@@ -157,9 +175,9 @@
 								transition:background 0.5s ease;
 							`
 						}, wrapws, function(index) {
-							let posLeft = ['0%','95.5%']
+							let style = ['0%','95.3%']
 							return `
-								left: ${posLeft.RetArrFromOnlyPlace(index, index, false, true)}
+								left: ${style.RetArrFromOnlyPlace(index, index, false, true)};
 							`
 						}, wrapws)
 						cssText.ArrCSS({
@@ -227,6 +245,8 @@
 							}
 						}));
 						wrapws.forEach(e => e.addEventListener('click', event => {
+							clearInterval(controlAnim);
+							controlAnim = window.setInterval(animInterval, 4000);
 							if(event.currentTarget.id == 'right') {
 								if(countImg === 4)
 									countImg = 3;
@@ -249,6 +269,8 @@
 						}));
 						checkBoxs.iterator((element,index) => {
 							element.addEventListener('click', e => {
+								clearInterval(controlAnim);
+								controlAnim = window.setInterval(animInterval, 4000);
 								switch(e.currentTarget.id) {
 									case 'check-1':
 										for(let i = 0; i < 5; i++) {
